@@ -57,3 +57,8 @@ Test empty string:
 Test no special characters:
     >>> text_indentation("Hello World")
     Hello World
+
+Test missing argument:
+    >>> text_indentation()
+    Traceback (most recent call last):
+    TypeError: text_indentation() missing 1 required positional argument: 'text'
