@@ -1,0 +1,59 @@
+The ``5-text_indentation`` module
+==================================
+
+Using ``text_indentation``
+--------------------------
+
+Import function:
+    >>> text_indentation = __import__('5-text_indentation').text_indentation
+
+Test basic text:
+    >>> text_indentation("Hello. World")
+    Hello.
+    <BLANKLINE>
+    World
+
+Test with question mark:
+    >>> text_indentation("How are you? Fine")
+    How are you?
+    <BLANKLINE>
+    Fine
+
+Test with colon:
+    >>> text_indentation("Python: Awesome")
+    Python:
+    <BLANKLINE>
+    Awesome
+
+Test with multiple punctuation:
+    >>> text_indentation("First. Second? Third: Fourth")
+    First.
+    <BLANKLINE>
+    Second?
+    <BLANKLINE>
+    Third:
+    <BLANKLINE>
+    Fourth
+
+Test with spaces after punctuation:
+    >>> text_indentation("Hello.   World")
+    Hello.
+    <BLANKLINE>
+    World
+
+Test with non-string:
+    >>> text_indentation(123)
+    Traceback (most recent call last):
+    TypeError: text must be a string
+
+Test with None:
+    >>> text_indentation(None)
+    Traceback (most recent call last):
+    TypeError: text must be a string
+
+Test empty string:
+    >>> text_indentation("")
+
+Test no special characters:
+    >>> text_indentation("Hello World")
+    Hello World
