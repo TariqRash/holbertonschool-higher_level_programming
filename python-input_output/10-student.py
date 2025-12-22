@@ -37,7 +37,8 @@ class Student:
         Returns:
             dict: Dictionary containing requested attributes.
         """
-        if isinstance(attrs, list) and all(isinstance(attr, str) for attr in attrs):
+        if (isinstance(attrs, list) and
+                all(isinstance(attr, str) for attr in attrs)):
             result = {}
             for attr in attrs:
                 if hasattr(self, attr):
