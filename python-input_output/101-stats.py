@@ -20,6 +20,28 @@ def print_stats(total_size, status_counts):
             print("{}: {}".format(code, status_counts[code]))
 
 
+def parse_line(line):
+    """Parse a log line and extract file size and status code.
+
+    Args:
+        line (str): Log line to parse.
+
+    Returns:
+        tuple: (file_size, status_code) or (0, None) if parsing fails.
+    """
+    try:
+        parts = line.split()
+        if len(parts) < 7:
+            return 0, None
+        
+        file_size = int(parts[-1])
+        status_code = int(parts[-2])
+        
+        return file_size, status_code
+    except (ValueError, IndexError):
+        return 0, None
+
+
 total_size = 0
 status_counts = {200: 0, 301: 0, 400: 0, 401: 0,
                  403: 0, 404: 0, 405: 0, 500: 0}
@@ -28,20 +50,12 @@ line_count = 0
 try:
     for line in sys.stdin:
         line_count += 1
-        parts = line.split()
+        file_size, status_code = parse_line(line)
         
-        try:
-            file_size = int(parts[-1])
-            total_size += file_size
-        except (IndexError, ValueError):
-            pass
+        total_size += file_size
         
-        try:
-            status_code = int(parts[-2])
-            if status_code in status_counts:
-                status_counts[status_code] += 1
-        except (IndexError, ValueError):
-            pass
+        if status_code in status_counts:
+            status_counts[status_code] += 1
         
         if line_count % 10 == 0:
             print_stats(total_size, status_counts)
